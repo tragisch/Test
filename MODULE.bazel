@@ -75,6 +75,12 @@ use_repo(python, "python_3_11")
 
 bazel_dep(name = "rules_java", version = "8.13.0")
 
+java = use_extension("@rules_java//java:extensions.bzl", "java")
+java.toolchain(
+    language_version = "21",
+    runtime_version = "21",
+)
+
 ######################################################################
 # Go
 ######################################################################
@@ -111,23 +117,23 @@ new_local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.
 new_local_repository(
     name = "Criterion",
     build_file = "@//:third_party/Criterion.BUILD",
-    path = "/opt/homebrew/opt/criterion",
+    path = "/home/linuxbrew/opt/criterion",
 )
 
 new_local_repository(
     name = "nanomsg",
     build_file = "@//:third_party/nanomsg.BUILD",
-    path = "/opt/homebrew/opt/nanomsg",
+    path = "/home/linuxbrew/opt/nanomsg",
 )
 
 new_local_repository(
     name = "protobuf-c",
     build_file = "@//:third_party/protobuf-c.BUILD",
-    path = "/opt/homebrew/opt/protobuf-c",
+    path = "/home/linuxbrew/opt/protobuf-c",
 )
 
 new_local_repository(
     name = "nanopb",
     build_file = "@//:third_party/nanopb.BUILD",
-    path = "/opt/homebrew/opt/nanopb",
+    path = "/home/linuxbrew/opt/nanopb",
 )
