@@ -1,0 +1,131 @@
+"""
+This module file is used to manage external dependencies using Bzlmod.
+Please consider migrating your external dependencies from WORKSPACE to MODULE.bazel.
+For more details, please check https://github.com/bazelbuild/bazel/issues/18958
+"""
+
+module(
+    name = "test_repo",
+    version = "0.0.1",
+)
+
+######################################################################
+# LLVM toolchain (C/C++/Rust)
+######################################################################
+
+bazel_dep(name = "toolchains_llvm", version = "1.4.0")
+
+llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm")
+llvm.toolchain(
+    llvm_version = "19.1.0",
+)
+
+use_repo(llvm, "llvm_toolchain")
+use_repo(llvm, "llvm_toolchain_llvm")
+register_toolchains("@llvm_toolchain//:all")
+
+######################################################################
+# C/C++
+######################################################################
+
+bazel_dep(name = "rules_cc", version = "0.1.2")
+bazel_dep(name = "googletest", version = "1.17.0")
+bazel_dep(name = "unittest-cpp", version = "2.0.1-0.20201113052638-10e50ad70c69")
+bazel_dep(name = "catch2", version = "3.8.1")
+bazel_dep(name = "rules_foreign_cc", version = "0.15.0")
+bazel_dep(name = "libgit2", version = "1.9.0")
+bazel_dep(name = "protobuf", version = "31.1")
+bazel_dep(name = "boost.test", version = "1.87.0.bcr.1")
+bazel_dep(name = "doctest", version = "2.4.12")
+
+######################################################################
+# Rust
+######################################################################
+
+bazel_dep(name = "rules_rust", version = "0.60.0")
+
+######################################################################
+# Python
+######################################################################
+
+bazel_dep(name = "rules_python", version = "1.5.0")
+
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+pip.parse(
+    hub_name = "pip",
+    python_version = "3.11",
+    requirements_lock = "//apps/python/tests/pytest:requirements_lock.txt",
+)
+
+python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+python.toolchain(
+    ignore_root_user_error = True,
+    is_default = True,
+    python_version = "3.11",
+)
+
+use_repo(pip, "pip")
+use_repo(python, "python_3_11")
+
+######################################################################
+# Java
+######################################################################
+
+bazel_dep(name = "rules_java", version = "8.13.0")
+
+######################################################################
+# Go
+######################################################################
+
+bazel_dep(name = "rules_go", version = "0.55.1")
+
+######################################################################
+# Git repositories
+######################################################################
+
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
+git_repository(
+    name = "Unity",
+    build_file = "@//:third_party/Unity.BUILD",
+    commit = "b9d897b5f38674248c86fb58342b87cb6006fe1f",
+    remote = "https://github.com/ThrowTheSwitch/Unity.git",
+)
+
+git_repository(
+    name = "munit",
+    build_file = "@//:third_party/munit.BUILD",
+    commit = "fbbdf1467eb0d04a6ee465def2e529e4c87f2118",
+    remote = "https://github.com/nemequ/munit.git",
+)
+
+######################################################################
+# Local repositories
+######################################################################
+
+new_local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "new_local_repository")
+
+new_local_repository(
+    name = "Criterion",
+    build_file = "@//:third_party/Criterion.BUILD",
+    path = "/opt/homebrew/opt/criterion",
+)
+
+new_local_repository(
+    name = "nanomsg",
+    build_file = "@//:third_party/nanomsg.BUILD",
+    path = "/opt/homebrew/opt/nanomsg",
+)
+
+new_local_repository(
+    name = "protobuf-c",
+    build_file = "@//:third_party/protobuf-c.BUILD",
+    path = "/opt/homebrew/opt/protobuf-c",
+)
+
+new_local_repository(
+    name = "nanopb",
+    build_file = "@//:third_party/nanopb.BUILD",
+    path = "/opt/homebrew/opt/nanopb",
+)

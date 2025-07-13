@@ -1,0 +1,133 @@
+#-------------------------------------------------------------------------------
+# Build artifacts
+#-------------------------------------------------------------------------------
+*.d
+*.o
+*.ko
+*.obj
+*.elf
+*.ilk
+*.map
+*.exp
+*.gch
+*.pch
+*.lib
+*.a
+*.la
+*.lo
+*.dll
+*.so
+*.so.*
+*.dylib
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+#-------------------------------------------------------------------------------
+# Debugging and diagnostic files
+#-------------------------------------------------------------------------------
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+#-------------------------------------------------------------------------------
+# Kernel Module Compile Results
+#-------------------------------------------------------------------------------
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+#-------------------------------------------------------------------------------
+# Visual Studio Code
+#-------------------------------------------------------------------------------
+.vscode/
+.history/
+*.vsix
+
+#-------------------------------------------------------------------------------
+# macOS metadata
+#-------------------------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+#-------------------------------------------------------------------------------
+# Bazel
+#-------------------------------------------------------------------------------
+/bazel-*
+/bazel.iml
+/output/
+.bazelversion
+.bazelignore
+user.bazelrc
+MODULE.bazel.lock
+
+#-------------------------------------------------------------------------------
+# Temporary files
+#-------------------------------------------------------------------------------
+/tmp/*
+
+#-------------------------------------------------------------------------------
+# Sphinx documentation
+#-------------------------------------------------------------------------------
+/sphinx/*
+
+#-------------------------------------------------------------------------------
+# Project-specific files and folders
+#-------------------------------------------------------------------------------
+/examples/*
+/benchmarks/*
+/data/*
+/share/*
+/lib/*
+/_archive/*
+/archive/*
+/.cache
+/.cache/*
+
+# legal reason to ignore:
+/third_party/src/hdf5/*
+
+# not build dependend, unclear License:
+/third_party/src/csparse
+/third_party/src/jburkardt
+/third_party/src/matmul
+/third_party/src/mesch12b
+/third_party/src/mm_offloading
+/third_party/src/spmatrix
+/third_party/src/spblas
+/third_party/src/cblas
+
+#-------------------------------------------------------------------------------
+*.in
+*.clang-tidy
+compile_commands.json
+default.profraw
+package-lock.json
+*.png
+StyleGuide.md
+MODULE.bazel.lock
+profile.gz
+
