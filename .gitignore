@@ -48,7 +48,7 @@ dkms.conf
 #-------------------------------------------------------------------------------
 # Visual Studio Code
 #-------------------------------------------------------------------------------
-.vscode/
+#.vscode/
 .history/
 *.vsix
 
@@ -107,18 +107,6 @@ MODULE.bazel.lock
 /.cache
 /.cache/*
 
-# legal reason to ignore:
-/third_party/src/hdf5/*
-
-# not build dependend, unclear License:
-/third_party/src/csparse
-/third_party/src/jburkardt
-/third_party/src/matmul
-/third_party/src/mesch12b
-/third_party/src/mm_offloading
-/third_party/src/spmatrix
-/third_party/src/spblas
-/third_party/src/cblas
 
 #-------------------------------------------------------------------------------
 *.in
