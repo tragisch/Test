@@ -1,4 +1,4 @@
-load("//:tools/unity_test.bzl", "unity_test")
+load("//tools:unity_test.bzl", "unity_test")
 
 unity_test(
     name = "mathlib_test",
