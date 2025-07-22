@@ -12,12 +12,36 @@
 common --nobuild_runfile_links
 common --enable_platform_specific_config
 common --noexperimental_check_external_repository_files
-common --experimental_fetch_all_coverage_outputs
 common --heap_dump_on_oom
 common --incompatible_strict_action_env
 common --reuse_sandbox_directories
 common --show_result=20
 common --test_output="errors"
+
+
+
+########################
+# Coverage configuration
+########################
+
+# Verwende das LLVM-Toolchain für Coverage
+build:coverage --collect_code_coverage
+build:coverage --experimental_use_llvm_cov
+build:coverage --experimental_generate_llvm_lcov
+
+# LLVM-spezifische Flags
+build:coverage --copt=-fprofile-instr-generate
+build:coverage --copt=-fcoverage-mapping
+build:coverage --linkopt=-fprofile-instr-generate
+
+# Coverage-Filter und Ausgabe
+coverage --combined_report=lcov
+coverage --instrumentation_filter="//apps[/:]"
+coverage --experimental_fetch_all_coverage_outputs
+
+# Workaround für gcov-Symlink Problem
+build:coverage --action_env=GCOV=llvm-cov
+build:coverage --action_env=LLVM_COV_PATH=/usr/bin/llvm-cov
 
 ########################
 # Java configuration
