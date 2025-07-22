@@ -1,7 +1,7 @@
 load("@rules_cc//cc:cc_library.bzl", "cc_library")
 
 cc_library(
-    name = "Criterion",
+    name = "criterion",
     srcs = ["lib/libcriterion.a"],
     hdrs = glob([
         "include/criterion/*.h",
@@ -18,10 +18,3 @@ cc_library(
         "@protobuf-c",
     ],
 )
-
-# load("@rules_foreign_cc//foreign_cc:meson.bzl", "meson")
-
-# meson(
-#     name = "Criterion",
-#     lib_source = ":Criterion_srcs",
-# )

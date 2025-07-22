@@ -8,5 +8,16 @@ cc_library(
         "include",
         "include/nanopb",
     ],
+    linkopts = select({
+        "@platforms//os:macos": [
+            "-L/opt/homebrew/opt/nanopb/lib",
+            "-lnanopb",
+        ],
+        "@platforms//os:linux": [
+            "-L/home/linuxbrew/opt/nanopb/lib",
+            "-lnanopb",
+        ],
+        "//conditions:default": [],
+    }),
     visibility = ["//visibility:public"],
 )

@@ -51,12 +51,12 @@ common --experimental_fetch_all_coverage_outputs
 # tag appears on the target definition.
 # This is a tradeoff: legitimately failing tests will take longer to report,
 # but we can "paper over" flaky tests that pass most of the time.
-# 
+#
 # An alternative is to mark every flaky test with the `flaky = True` attribute, but this requires
 # the buildcop to make frequent code edits.
 # This flag is not recommended for local builds: flakiness is more likely to get fixed if it is
 # observed during development.
-# 
+#
 # Note that when passing after the first attempt, Bazel will give a special "FLAKY" status rather than "PASSED".
 test:ci --flaky_test_attempts=2
 # Docs: https://registry.build/flag/bazel@8.3.1?filter=flaky_test_attempts
@@ -97,7 +97,7 @@ common --incompatible_strict_action_env
 # On CI, don't download remote outputs to the local machine.
 # Most CI pipelines don't need to access the files and they can remain at rest on the remote cache.
 # Significant time can be spent on needless downloads, which is especially noticeable on fully-cached builds.
-# 
+#
 # If you do need to download files, the fastest options are:
 # - (preferred) Use `remote_download_regex` to specify the files to download.
 # - Use the Remote Output Service (https://blog.bazel.build/2024/07/23/remote-output-service.html)
@@ -186,7 +186,7 @@ common:debug --test_timeout=9999
 # Automatic execution groups select an execution platform for each toolchain type.
 # In other words, one target can have multiple execution platforms without defining execution groups.
 # Migration requires setting a toolchain parameter inside ctx.actions.{run, run_shell} for actions which use tool or executable from a toolchain.
-# 
+#
 # See https://github.com/bazelbuild/bazel/issues/17134
 common --incompatible_auto_exec_groups
 # Docs: https://registry.build/flag/bazel@8.3.1?filter=incompatible_auto_exec_groups
@@ -195,7 +195,7 @@ common --incompatible_auto_exec_groups
 # (protobuf, rules_java, rules_cc, rules_android, apple_support).
 # Because of the move the rules need to be loaded from their repositories.
 # This requires adding load statements to all bzl and BUILD files that are using those rules.
-# 
+#
 # See https://github.com/bazelbuild/bazel/issues/23043
 common --incompatible_autoload_externally
 # Docs: https://registry.build/flag/bazel@8.3.1?filter=incompatible_autoload_externally
@@ -204,39 +204,38 @@ common --incompatible_autoload_externally
 # There's no philosophical reason to distinguish them.
 # Treat all config_settings as if they follow standard visibility logic at https://docs.bazel.build/versions/master/visibility.html:
 # have them set visibility explicitly if they'll be used anywhere outside their own package.
-# 
+#
 # See https://github.com/bazelbuild/bazel/issues/12933
 common --incompatible_config_setting_private_default_visibility
 # Docs: https://registry.build/flag/bazel@8.3.1?filter=incompatible_config_setting_private_default_visibility
 
 # When set to `true`, native repo rules cannot be used in WORKSPACE; their Starlark counterparts must be used. Native repo rules already can't be used in Bzlmod.
-# 
+#
 # See https://github.com/bazelbuild/bazel/issues/22080
 common --incompatible_disable_native_repo_rules
 # Docs: https://registry.build/flag/bazel@8.3.1?filter=incompatible_disable_native_repo_rules
 
 # Removes create_executable attribute from java_binary.
 # Migration to java_single_jar is needed.
-# 
+#
 # See https://github.com/bazelbuild/bazel/issues/19687
 common --incompatible_disable_non_executable_java_binary
 # Docs: https://registry.build/flag/bazel@8.3.1?filter=incompatible_disable_non_executable_java_binary
 
 # Changes this syntax to be illegal: cfg = "host"
 # Instead use: cfg = "exec"
-# 
+#
 # See https://github.com/bazelbuild/bazel/issues/17032
 common --incompatible_disable_starlark_host_transitions
 # Docs: https://registry.build/flag/bazel@8.3.1?filter=incompatible_disable_starlark_host_transitions
 
 # Address a counterintuitive interaction with --action_env and it's affect on repository environments.
-# 
+#
 # Note that this will implicitly affect other features which inherit the repository environment such as:
 # - Credential managers
 # - Download manager
 # - And possibly more.
-# 
+#
 # See https://github.com/bazelbuild/bazel/issues/26222
 common --incompatible_repo_env_ignores_action_env
 # Docs: https://registry.build/flag/bazel@8.3.1?filter=incompatible_repo_env_ignores_action_env
-

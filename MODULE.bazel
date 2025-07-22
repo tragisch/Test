@@ -9,7 +9,7 @@ module(
     version = "0.0.1",
 )
 
-bazel_dep(name = "bazelrc-preset.bzl", version = "0.4.0")
+bazel_dep(name = "bazelrc-preset.bzl", version = "0.4.2")
 
 ######################################################################
 # LLVM toolchain (C/C++/Rust)
@@ -36,9 +36,11 @@ bazel_dep(name = "unittest-cpp", version = "2.0.1-0.20201113052638-10e50ad70c69"
 bazel_dep(name = "catch2", version = "3.8.1")
 bazel_dep(name = "rules_foreign_cc", version = "0.15.0")
 bazel_dep(name = "libgit2", version = "1.9.0")
-bazel_dep(name = "protobuf", version = "31.1")
+bazel_dep(name = "protobuf", version = "29.3")
+bazel_dep(name = "rules_proto", version = "7.1.0")
 bazel_dep(name = "boost.test", version = "1.87.0.bcr.1")
 bazel_dep(name = "doctest", version = "2.4.12")
+bazel_dep(name = "check", version = "0.15.2")
 
 ######################################################################
 # Rust
@@ -114,32 +116,43 @@ git_repository(
     remote = "https://github.com/nemequ/munit.git",
 )
 
+git_repository(
+    name = "protobuf-c",
+    build_file = "@//:third_party/protobuf-c.BUILD",
+    commit = "4719fdd7760624388c2c5b9d6759eb6a47490626",
+    remote = "https://github.com/protobuf-c/protobuf-c.git",
+    patch_cmds = [
+        "mkdir -p google/protobuf",
+        "curl -s -o google/protobuf/descriptor.proto https://raw.githubusercontent.com/protocolbuffers/protobuf/main/src/google/protobuf/descriptor.proto",
+    ],
+)
+
 ######################################################################
-# Local repositories
+# Local repositories (platform-specific)
 ######################################################################
 
 new_local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "new_local_repository")
 
 new_local_repository(
-    name = "Criterion",
-    build_file = "@//:third_party/Criterion.BUILD",
-    path = "/home/linuxbrew/opt/criterion",
+    name = "criterion",
+    build_file = "@//:third_party/criterion.BUILD",
+    path = "/some/homebrew/path/to/be/overwritten",
 )
 
 new_local_repository(
     name = "nanomsg",
     build_file = "@//:third_party/nanomsg.BUILD",
-    path = "/home/linuxbrew/opt/nanomsg",
+    path = "/some/homebrew/path/to/be/overwritten",
 )
 
-new_local_repository(
-    name = "protobuf-c",
-    build_file = "@//:third_party/protobuf-c.BUILD",
-    path = "/home/linuxbrew/opt/protobuf-c",
-)
+# new_local_repository(
+#     name = "protobuf-c",
+#     build_file = "@//:third_party/protobuf-c.BUILD",
+#     path = "/some/homebrew/path/to/be/overwritten",
+# )
 
 new_local_repository(
     name = "nanopb",
     build_file = "@//:third_party/nanopb.BUILD",
-    path = "/home/linuxbrew/opt/nanopb",
+    path = "/some/homebrew/path/to/be/overwritten",
 )
